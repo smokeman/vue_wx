@@ -2,32 +2,43 @@
     <div id="ranking">
        <div class="rankBg">
         <header id="header">
-                <img src="../assets/image/headlineimg.png"/>
+                <!--<img src="../assets/image/headlineimg.png"/>-->
+                <mt-field label="金额" style="border:2px solid yellow" :placeholder="'请输入金额'" type="tel"></mt-field>
+                <button @click="msg">参与</button>
+                
          </header>
-            <div id="rankcon">
+            <div id="rankcon" v-if="seen">
                 <table class="amtable">
                     <thead>
                         <tr>
                             <th class="am-text-left">名次</th>
-                            <th class="am-text-left">姓名</th>
-                            <th class="am-text-right">总件数</th>
+                            <th class="am-text-left">昵称</th>
+                            <th class="am-text-right">奖品</th>
                         </tr>
                     </thead>
                     <tbody> 
                         <tr>
                             <td class="am-text-left"><span class="amiconbtn">1</span></td>
-                            <td class="am-text-left">杨立</td>
-                            <td class="am-text-right">200</td>
+                            <td class="am-text-left">zed</td>
+                            <td class="am-text-right">酒</td>
                         </tr>
-                    
+                        <tr>
+                            <td class="am-text-left"><span class="amiconbtn">2</span></td>
+                            <td class="am-text-left">smoke</td>
+                            <td class="am-text-right">烟</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div id="sambutton">
                     <div>点击查看即可查看您的排名</div>
-                    <button type="button" class="am-btn">查看</button>
+                    <button type="button" class="am-btn" @click="seen=false">关闭</button>
                 </div>
             </div>
-            
+            <div v-if="show">
+                <span class="text" :style="{ backgroundColor: bgColor, color: color }">{{hour}}</span><span :style="{ color: bgColor }">:</span><span
+                class="text" :style="{ backgroundColor: bgColor, color: color }">{{minute}}</span><span :style="{ color: bgColor }">:</span><span
+                class="text" :style="{ backgroundColor: bgColor, color: color }">{{second}}</span>
+            </div>
         </div> 
     </div>
 </template>
@@ -151,4 +162,82 @@ table {
     padding: .4rem 1rem;
     font-size: 0.6rem;
 }
+.text {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 3px 2px;
+    border-radius: 2px;
+  }
 </style>
+
+<script>
+import {MessageBox} from 'mint-ui'
+  export default {
+    props: {
+      date: {
+        default: new Date()
+      },
+      bgColor: {
+        default: '#000000'
+      },
+      color: {
+        default: '#FFFFFF'
+      }
+    },
+    data () {
+      return {
+        seen:false,
+        show:false,
+        hour: '00',
+        minute: '00',
+        second: '05',
+        count: this.date - new Date().getTime(),
+        interval: null
+      }
+    },
+    mounted () {
+      
+    },
+    methods: {
+      start () {
+          var _this = this;
+        _this.interval = setInterval(() => {
+          _this.count = (parseInt(_this.hour)*60*60+parseInt(_this.minute)*60+parseInt(_this.second))*1000 - 1000
+          if (_this.count <= 0) {
+            _this.second = '00'
+            clearInterval(_this.interval)
+            _this.timeDown()
+            return
+          }
+          _this.hour = parseInt(_this.count / (60 * 60 * 1000)) + ''
+          if (_this.hour < 10) {
+            _this.hour = '0' + _this.hour
+          }
+          let n = _this.count % (60 * 60 * 1000)
+          _this.minute = parseInt(n / (60 * 1000)) + ''
+          if (_this.minute < 10) {
+            _this.minute = '0' + _this.minute
+          }
+          let n2 = n % (60 * 1000)
+          _this.second = parseInt(n2 / 1000) + ''
+          if (_this.second < 10) {
+            _this.second = '0' + _this.second
+          }
+        //   _this.count = _this.count - 1000
+        }, 1000)
+      },
+      timeDown () {
+        this.$emit('timeDown')
+        this.seen = true
+        this.show = false
+      },
+      msg(){
+          MessageBox('提示','参与成功')
+          this.second = "05"
+          this.show = true,
+          this.start()
+      }
+    },
+    computed: {}
+  }
+</script>

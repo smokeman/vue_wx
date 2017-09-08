@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import {Indicator,Button,InfiniteScroll,Tabbar,Search, TabItem,Picker,DatetimePicker,Radio,Button,Swipe,Cell, SwipeItem,Header,Navbar,TabItem,TabContainer, TabContainerItem } from 'mint-ui';
+import {MessageBox,Indicator,Button,InfiniteScroll,Tabbar,Search, TabItem,Picker,DatetimePicker,Radio,Button,Swipe,Cell, SwipeItem,Header,Navbar,TabItem,TabContainer, TabContainerItem } from 'mint-ui';
 
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
@@ -18,5 +18,6 @@ Vue.component(Tabbar.name, Tabbar);
 Vue.component(TabItem.name, TabItem);
 Vue.component(Button.name, Button);
 Vue.component(Search.name, Search);
+Vue.component(MessageBox.name, MessageBox);
 Vue.use(InfiniteScroll);
 Vue.use(Indicator);

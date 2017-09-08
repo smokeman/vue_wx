@@ -10,9 +10,7 @@
         </mt-swipe>
      </section> 
 
-    
-        
-   </div> 
+   </div>
 </div>
 </template>
 
