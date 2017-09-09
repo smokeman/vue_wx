@@ -33,8 +33,9 @@
       return {
          cells:[
             {name:'首页',code:'#icon-home1',pash:'/home'},
-            {name:'排名',code:'#icon-paiming1',pash:'/ranking'},
-            {name:'订单',code:'#icon-2',pash:'/order'},
+            {name:'抽奖',code:'#icon-paiming1',pash:'/ranking'},
+            {name:'设置',code:'#icon-paiming1',pash:'/userset'},
+            {name:'管理',code:'#icon-2',pash:'/order'},
             {name:'我的',code:'#icon-wode',pash:'/userdata'}
         ],
     
