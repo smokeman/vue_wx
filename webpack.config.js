@@ -1,5 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
+import VueSocketio from 'vue-socket.io'
+Vue.use(VueSocketio, 'http://127.0.0.1:3000')
 
 module.exports = {
   entry: './src/main.js',

@@ -39,6 +39,7 @@
                 class="text" :style="{ backgroundColor: bgColor, color: color }">{{minute}}</span><span :style="{ color: bgColor }">:</span><span
                 class="text" :style="{ backgroundColor: bgColor, color: color }">{{second}}</span>
             </div>
+            <button @click="clickButton">点击</button>
         </div> 
     </div>
 </template>
@@ -172,6 +173,7 @@
 
 <script>
 import {MessageBox} from 'mint-ui'
+// import socket.io from 'socket.io'
   export default {
     props: {
       date: {
@@ -192,11 +194,20 @@ import {MessageBox} from 'mint-ui'
         minute: '00',
         second: '05',
         count: this.date - new Date().getTime(),
-        interval: null
+        interval: null,
+        id:''
       }
     },
+    sockets:{
+        connect: function(){
+            this.id=this.$socket.id
+            },
+        customEmit: function(val){
+            console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+            }
+    },
     mounted () {
-      
+      this.$socket.emit('connect', val);
     },
     methods: {
       start () {
@@ -236,7 +247,11 @@ import {MessageBox} from 'mint-ui'
           this.second = "05"
           this.show = true,
           this.start()
-      }
+      },
+      clickButton: function(val){
+            // $socket is socket.io-client instance
+            this.$socket.emit('emit_method', val);
+        }
     },
     computed: {}
   }

@@ -8,8 +8,12 @@ import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import axios from 'axios'
 
+// import VueSocketio from 'vue-socket.io'
+
 Vue.use(Mint);
 Vue.use(VueRouter);
+// Vue.use(VueSocketio, '127.0.0.1:3000')
+// Vue.use(VueSocketio, socketio('http://127.0.0.1:3000'));
 //关于axios配置
 axios.interceptors.request.use(function(config) { //发送请求
      Mint.Indicator.open('加载中...');
